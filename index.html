@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>マイレージパーク｜マイル・LSPシミュレーター</title>
+<style>
+:root{--bg:#f7f6f3;--panel:#fff;--ink:#202630;--muted:#616975;--line:#e1e3e7;--red:#a7253b;--red-soft:#fcf0f2;--soft:#f4f5f7;--radius:20px;--shadow:0 8px 28px #17253506}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK JP","Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;font-size:15px;line-height:1.75;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit}button,input,select{touch-action:manipulation}button,a,input,select,summary{outline-offset:4px}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #a7253b80}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}[hidden]{display:none!important}
+.topbar{height:5px;background:var(--red)}.page{max-width:1110px;margin:auto;padding:38px 26px 30px}.mast{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.eyebrow{color:var(--red);font-weight:700;font-size:12px;letter-spacing:.08em}.tag{background:#fff;border:1px solid var(--line);color:var(--muted);border-radius:30px;font-size:11px;padding:3px 10px;white-space:nowrap}
+h1{font-size:clamp(26px,3.3vw,36px);line-height:1.4;letter-spacing:.01em;margin:0 0 10px;font-weight:750}h1 span{display:inline-block}.intro{color:var(--muted);margin:0 0 5px}.definition{color:var(--muted);font-size:12px;margin:0 0 26px}.main-grid{display:grid;grid-template-columns:minmax(0,1.17fr) minmax(0,1fr);gap:22px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.form-main{padding:25px 26px 22px}.section-head{display:flex;gap:10px;align-items:center;margin-bottom:20px}.step{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:50%;background:var(--red-soft);color:var(--red);font-size:12px;font-weight:700;flex:0 0 auto}h2{font-size:17px;margin:0;line-height:1.6}.field-label,label.block{display:block;font-size:13px;font-weight:650;margin-bottom:8px}.rate-row{display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1fr);align-items:center;gap:9px}.connector{text-align:center;color:var(--muted);font-size:12px;white-space:nowrap}.input-wrap{display:flex;align-items:center;position:relative;min-width:0}.input-wrap input{width:100%;padding:11px 46px 11px 14px;background:#fff;border:1px solid #c9cfd7;border-radius:10px;font-size:24px;line-height:1.5;font-weight:600;font-variant-numeric:tabular-nums;min-width:0;color:var(--ink)}.input-wrap .unit{position:absolute;right:13px;pointer-events:none;color:var(--muted);font-size:12px}.input-wrap .long-unit{right:11px}.input-wrap .mile-input{padding-right:62px}input:focus,select:focus{border-color:var(--red)!important;outline:3px solid #a7253b13}input[aria-invalid=true]{border-color:#b11e35!important;background:#fff7f8}.presets{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 22px}.chip{border:1px solid var(--line);background:#fff;color:var(--muted);padding:6px 10px;border-radius:8px;min-height:35px;font-size:11px;line-height:1.5}.chip[aria-pressed=true]{color:var(--red);border-color:#d9a5ae;background:var(--red-soft);font-weight:650}.chip:hover{border-color:#bd8e97}.amount-box input{font-size:29px}.helper{font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.8}.subtle{font-size:11px;color:var(--muted)}.notice{background:#fff6e9;border:1px solid #ecdcbd;border-radius:10px;font-size:12px;padding:11px 13px;color:#634c27;margin-top:14px}.optional{border-top:1px solid var(--line)}summary{list-style:none;cursor:pointer;position:relative;padding:17px 26px;font-size:13px;font-weight:650;min-height:55px}summary::-webkit-details-marker{display:none}summary:after{content:'＋';position:absolute;right:26px;font-weight:400;color:var(--muted)}details[open]>summary:after{content:'−'}.optional-inner{padding:0 26px 22px}.field{margin-bottom:17px}.field:last-child{margin-bottom:0}.small-input input{font-size:17px;padding-top:9px;padding-bottom:9px}.check{display:flex;align-items:flex-start;gap:10px;font-size:13px;cursor:pointer;font-weight:550;line-height:1.7}.check input{accent-color:var(--red);width:18px;height:18px;flex:0 0 18px;margin:3px 0 0}.check.compact{font-size:12px;font-weight:400}.card-section{border-top:1px solid var(--line);padding:19px 26px 23px}.card-settings{padding-top:18px}.row-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}select{background:#fff;border:1px solid #c9cfd7;border-radius:9px;min-height:44px;padding:9px 30px 9px 11px;width:100%;font-size:13px;line-height:1.5;color:var(--ink)}.separated{padding-top:17px;margin-top:17px;border-top:1px solid var(--line)}.adjust-field{margin-top:12px}.mini-strip{background:var(--soft);padding:10px 13px;border-radius:9px;display:flex;justify-content:space-between;gap:8px;font-size:12px;margin:12px 0}.mini-strip strong{font-variant-numeric:tabular-nums}.actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:15px;padding:0 2px}.plain-button{background:#fff;border:1px solid #cbd0d7;border-radius:9px;padding:9px 15px;color:var(--ink);font-size:12px;min-height:40px}.plain-button:hover{background:#f7f8f9}.save-message{font-size:11px;color:var(--muted);min-height:20px;margin:5px 2px 0}.error{margin:0 0 16px;background:#fff0f2;border:1px solid #e3aeba;border-radius:10px;padding:12px 16px;color:#941b30;font-size:13px}
+.results{position:sticky;top:22px}.result-top{padding:25px 24px 22px;border-bottom:1px solid var(--line);background:linear-gradient(150deg,#fff,#fdf6f7)}.result-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:19px}.result-head h2{font-size:16px}.result-scope{font-size:10px;display:inline-block;border:1px solid #e6cbd0;border-radius:30px;padding:3px 9px;color:var(--red);background:#fff;white-space:nowrap}.totals{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}.total-label{font-size:12px;color:var(--muted);margin-bottom:3px}.big-value{font-size:clamp(29px,3.6vw,43px);line-height:1.35;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.035em;overflow-wrap:anywhere}.big-value.accent{color:var(--red)}.value-unit{font-size:12px;color:var(--muted);margin-left:5px;font-weight:500;letter-spacing:0;white-space:nowrap}.result-note{font-size:11px;margin:13px 0 0;color:var(--muted);line-height:1.8}.breakdown{padding:21px 24px 23px}.breakdown table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}.breakdown th{text-align:right;font-weight:500;font-size:10px;color:var(--muted);padding:0 0 9px}.breakdown th:first-child{width:43%;text-align:left}.breakdown td{padding:11px 0;border-top:1px solid var(--line);text-align:right;font-weight:650;font-variant-numeric:tabular-nums}.breakdown td:first-child{text-align:left;font-weight:500}.summary-line{display:flex;justify-content:space-between;gap:15px;font-size:12px;margin:0 0 6px}.summary-line strong{font-variant-numeric:tabular-nums;font-weight:650}.carry-box{background:var(--soft);padding:13px 15px;border-radius:11px;margin-top:17px}.carry-title{font-size:12px;font-weight:650;margin-bottom:7px}.carry-next{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.8}.formula-box{border-top:1px solid var(--line);margin-top:17px;padding-top:14px}.formula-title{font-size:11px;font-weight:650;margin-bottom:7px}.formula-text{color:var(--muted);font-size:11px;margin:4px 0;line-height:1.8;overflow-wrap:anywhere}.copy-row{display:flex;align-items:center;gap:10px;margin-top:15px}.copy-row button{flex:0 0 auto}.copy-message{font-size:11px;color:var(--muted)}.notes{margin-top:26px;border:1px solid var(--line);border-radius:15px;background:#ffffffb0}.notes summary{padding:17px 22px}.notes summary:after{right:22px}.notes-inner{padding:0 23px 21px}.note-block{font-size:12px;color:var(--muted);margin:0 0 13px}.note-block strong{color:var(--ink);font-weight:650}.note-block a,.sources a{color:var(--red);text-decoration:underline;text-underline-offset:2px}.sources{font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:13px}.sources a{display:block;overflow-wrap:anywhere;margin-top:4px}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:15px;color:var(--muted);font-size:10px}.mobile-result{display:none}.noscript{padding:18px;background:#fff0f2;color:#941b30}.extra-rate-note{margin:0 0 10px;color:var(--muted);font-size:12px}
+@media(max-width:850px){.page{padding:26px 19px}.main-grid{gap:17px;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}.form-main{padding:22px 20px}.optional-inner{padding:0 20px 20px}summary{padding-left:20px;padding-right:20px}.card-section{padding:18px 20px}.result-top,.breakdown{padding:21px 19px}.result-head{align-items:flex-start;flex-direction:column;gap:6px}.big-value{font-size:33px}.rate-row{gap:7px;grid-template-columns:minmax(0,1fr) 25px minmax(0,1fr)}.input-wrap input{font-size:22px;padding-left:11px}.chip{font-size:10px}.totals{gap:13px}}
+@media(max-width:660px){.page{padding:23px 16px 98px;max-width:550px}.mast{margin-bottom:12px}.definition{font-size:11px;margin-bottom:20px}.intro{font-size:13px}.main-grid{grid-template-columns:1fr;gap:20px}.results{position:static}.form-main{padding:22px}.optional-inner{padding:0 22px 21px}.card-section{padding:18px 22px 21px}summary{padding:17px 22px}.rate-row{grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);gap:10px}.input-wrap input{font-size:25px}.amount-box input{font-size:29px}.small-input input{font-size:17px}.chip{font-size:11px;min-height:40px}.result-head{flex-direction:row;align-items:center}.big-value{font-size:40px}.totals{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.notes{margin-top:22px}.footer{display:block;line-height:1.9}.mobile-result{display:flex;position:fixed;z-index:10;bottom:0;left:0;right:0;padding:10px 20px calc(10px + env(safe-area-inset-bottom));background:#fffffff5;border-top:1px solid #d9dce1;backdrop-filter:blur(10px);align-items:center;justify-content:space-between;gap:12px}.mobile-result .caption{font-size:10px;color:var(--muted)}.mobile-result strong{font-size:19px;font-variant-numeric:tabular-nums}.mobile-result .lsp{color:var(--red)}.mobile-result a{border:1px solid #dcb6be;border-radius:8px;padding:7px 10px;color:var(--red);font-size:11px;white-space:nowrap;text-decoration:none}.mobile-values{display:flex;gap:22px}.save-message{font-size:10px}h1{font-size:28px}.result-note{font-size:11px}.row-two{gap:10px}}
+@media(max-width:360px){.page{padding-left:12px;padding-right:12px}.form-main,.card-section{padding-left:17px;padding-right:17px}.optional-inner{padding-left:17px;padding-right:17px}.result-top,.breakdown{padding-left:17px;padding-right:17px}.rate-row{gap:7px;grid-template-columns:minmax(0,1fr) 27px minmax(0,1fr)}.input-wrap input{font-size:21px}.mobile-values{gap:15px}.mobile-result{padding-left:14px;padding-right:14px}.tag{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="page">
+<header>
+ <div class="mast"><span class="eyebrow">マイレージパークでの買い物</span><span class="tag">個人用・非公式</span></div>
+ <h1>マイル・LSP<span>シミュレーター</span></h1>
+ <p class="intro">積算率と税抜購入額を入力すると、その場で計算します。</p>
+ <p class="definition">Life Status Points（Life Statusポイント：LSP）。買い物に対応するマイルがすべて積算された後の概算です。</p>
+</header>
+<noscript><p class="noscript">計算にはJavaScriptが必要です。プレビューではなく、このファイルをJavaScriptが有効なブラウザーで開いてください。</p></noscript>
+<div id="error" class="error" role="alert" hidden></div>
+<main class="main-grid">
+<div>
+<form id="simForm" novalidate>
+<div class="panel">
+ <div class="form-main">
+  <div class="section-head"><span class="step">1</span><h2>パーク経由分の条件</h2></div>
+  <div class="field-label">ショップに表示されている積算率</div>
+  <div class="rate-row">
+   <div class="input-wrap"><input id="rateYen" type="text" inputmode="numeric" autocomplete="off" value="200" aria-label="何円につき" maxlength="12"><span class="unit">円</span></div>
+   <span class="connector">につき</span>
+   <div class="input-wrap"><input class="mile-input" id="rateMiles" type="text" inputmode="decimal" autocomplete="off" value="1" aria-label="何マイルたまるか" maxlength="9"><span class="unit long-unit">マイル</span></div>
+  </div>
+  <div class="presets" aria-label="積算率の入力例">
+   <button type="button" class="chip" data-yen="200" data-miles="1" aria-pressed="true">200円→1マイル</button>
+   <button type="button" class="chip" data-yen="200" data-miles="5" aria-pressed="false">200円→5マイル</button>
+   <button type="button" class="chip" data-yen="100" data-miles="1" aria-pressed="false">100円→1マイル</button>
+   <button type="button" class="chip" data-yen="300" data-miles="1" data-rakuten="true" aria-pressed="false">楽天市場：300円→1マイル</button>
+  </div>
+  <label class="block" for="amount">購入金額（税抜）</label>
+  <div class="input-wrap amount-box"><input id="amount" type="text" inputmode="numeric" autocomplete="off" value="20,000" maxlength="16"><span class="unit">円</span></div>
+  <p class="helper">原則、送料・値引き・対象外商品を除いた金額。各商品の対象額が異なる場合は、下の詳細設定で調整できます。</p>
+  <div id="rakutenNote" class="notice" hidden>楽天市場は商品1個につき10万円までが対象です。この上限は自動適用しません。超える商品がある場合は、詳細設定で「パークの積算対象額」を調整してください。複数商品の合計額に10万円の上限をかけるものではありません。<br>例：税抜30万円の商品1個なら、購入金額300,000円・パーク対象額100,000円。</div>
+ </div>
+ <details id="advanced" class="optional">
+  <summary>繰越・対象外マイル・端数の詳細設定</summary>
+  <div class="optional-inner">
+   <div class="field">
+    <label class="block" for="parkCarry">パークの繰越実績（0〜99マイル）</label>
+    <div class="input-wrap small-input"><input id="parkCarry" class="mile-input" type="text" inputmode="numeric" value="0" maxlength="3"><span class="unit long-unit">マイル</span></div>
+    <p class="helper">現在保有する総マイル数ではなく、前回までのLSP未換算分です。対象ショップ間で合算されたパーク分だけを入力します。</p>
+   </div>
+   <div class="field">
+    <label class="block" for="lspMode">パーク経由分のうち、LSPの対象となるマイル</label>
+    <select id="lspMode">
+     <option value="all">すべて対象（通常のマイルアップを含む）</option>
+     <option value="partial">一部だけ対象（対象の積算率を指定）</option>
+     <option value="none">すべて対象外（LSP対象外ショップなど）</option>
+    </select>
+    <div id="partialFields" class="adjust-field" hidden>
+     <label class="block" for="eligibleRate">上記の<span id="rateUnitLabel">200</span>円につき、LSP対象は何マイルか</label>
+     <div class="input-wrap small-input"><input id="eligibleRate" class="mile-input" type="text" inputmode="decimal" value="1" maxlength="9"><span class="unit long-unit">マイル</span></div>
+     <p class="helper">例：200円で5マイルを獲得し、そのうち通常分の1マイルだけが対象なら「1」。</p>
+    </div>
+    <p class="helper">通常のマイルアップは対象ですが、一部キャンペーンは増量分が対象外です。個別の注意事項を確認してください。</p>
+   </div>
+   <div class="field separated">
+    <label class="check"><input type="checkbox" id="adjustPark">パークの積算対象額を別に指定する</label>
+    <div id="adjustParkFields" class="adjust-field" hidden>
+     <label class="block" for="parkAmount">パークの積算対象額（税抜）</label>
+     <div class="input-wrap small-input"><input id="parkAmount" type="text" inputmode="numeric" value="20,000" maxlength="16"><span class="unit">円</span></div>
+     <p class="helper">商品ごとの上限、クーポン、対象外商品などを調整した後の合計額を入力します。上限や割引は自動判定しません。</p>
+    </div>
+   </div>
+   <div class="field separated">
+    <label class="block" for="rounding">パーク経由マイルの端数処理</label>
+    <select id="rounding">
+     <option value="floor">計算後、1マイル未満を切り捨て（初期設定）</option>
+     <option value="block">購入額を金額単位で切り捨ててから計算</option>
+     <option value="round">計算後、1マイル未満を四捨五入</option>
+    </select>
+    <p id="roundHint" class="helper"></p>
+    <p class="helper">入力額全体を1件として計算します。実際の処理単位・端数処理はショップごとに異なり、商品ごと・注文ごとに計算すると差が出る場合があります。</p>
+   </div>
+  </div>
+ </details>
+ <section class="card-section">
+  <label class="check"><input type="checkbox" id="includeCard">JALカード決済分も含める</label>
+  <p class="helper">CLUB-Aカード＋ショッピングマイル・プレミアム加入を前提に、カード分を別計算します。</p>
+  <div id="cardSettings" class="card-settings" hidden>
+   <div class="field">
+    <label class="block" for="cardType">カード決済の積算率</label>
+    <select id="cardType">
+     <option value="normal">通常店：100円＝1マイル</option>
+     <option value="special">特約店：100円＝2マイル</option>
+    </select>
+    <p class="helper">楽天市場の通常決済は「通常店」。特約店は、対象となるJALカードの直接決済を前提とします。</p>
+   </div>
+   <div class="row-two">
+    <div class="field"><label class="block" for="tax">税込額の計算用税率</label><select id="tax"><option value="10">10%</option><option value="8">8%</option><option value="0">0%</option></select></div>
+    <div class="field"><label class="block" for="cardCarry">カードの繰越実績</label><div class="input-wrap small-input"><input class="mile-input" id="cardCarry" type="text" inputmode="numeric" value="0" maxlength="6"><span class="unit long-unit">マイル</span></div></div>
+   </div>
+   <p class="helper">カードの繰越は0〜1,999マイル。パークの繰越とは別です。</p>
+   <div class="mini-strip"><span>今回のカード対象決済額</span><strong id="grossLabel">22,000円</strong></div>
+   <label class="check compact"><input type="checkbox" id="overrideCard">カードの実際の対象決済額を指定する</label>
+   <div id="overrideCardFields" class="adjust-field" hidden>
+    <label class="block" for="cardAmount">カードの対象決済額（税込）</label>
+    <div class="input-wrap small-input"><input id="cardAmount" type="text" inputmode="numeric" value="22,000" maxlength="16"><span class="unit">円</span></div>
+    <p class="helper">送料、ポイント充当、税率の混在などがある場合は、実際にカードで払うマイル対象額を入力します。</p>
+   </div>
+   <p class="helper">カード分は対象決済額÷100を四捨五入し、特約店なら2倍。複数決済の合計入力は概算です。</p>
+  </div>
+ </section>
+</div>
+<div class="actions">
+ <button id="reset" class="plain-button" type="button">初期設定に戻す</button>
+ <label class="check compact"><input id="remember" type="checkbox">このブラウザーに入力内容を保存</label>
+</div>
+<p id="saveMessage" class="save-message">入力内容は外部送信しません。試算しても繰越実績は自動更新されません。</p>
+</form>
+</div>
+<aside id="resultPanel" class="results panel" aria-label="計算結果">
+ <div class="result-top" aria-live="polite" aria-atomic="true">
+  <div class="result-head"><h2>今回の試算結果</h2><span id="resultScope" class="result-scope">パーク経由分のみ</span></div>
+  <div class="totals">
+   <div><div class="total-label">獲得予定マイル</div><div class="big-value"><span id="totalMiles">—</span><span class="value-unit">マイル</span></div></div>
+   <div><div class="total-label">付与予定LSP</div><div class="big-value accent"><span id="totalLsp">—</span><span class="value-unit">ポイント</span></div></div>
+  </div>
+  <p class="result-note">マイルは今回の新規獲得分のみ。LSPは入力した繰越実績を加え、基準に到達する分を表示します。</p>
+ </div>
+ <div class="breakdown">
+  <table aria-label="パークとカードの計算内訳">
+   <thead><tr><th scope="col">内訳</th><th scope="col">マイル</th><th scope="col">LSP</th></tr></thead>
+   <tbody><tr><td>パーク経由分</td><td id="parkMilesOut">—</td><td id="parkLspOut">—</td></tr><tr id="cardResultRow" hidden><td>カード決済分</td><td id="cardMilesOut">—</td><td id="cardLspOut">—</td></tr></tbody>
+  </table>
+  <div class="carry-box">
+   <div class="carry-title">パークのLSP積算実績</div>
+   <div class="summary-line"><span>今回の対象マイル</span><strong id="eligibleOut">—</strong></div>
+   <div id="excludedLine" class="summary-line" hidden><span>今回の対象外マイル</span><strong id="excludedOut">—</strong></div>
+   <div class="summary-line"><span>付与後の繰越実績</span><strong id="parkRemainOut">—</strong></div>
+   <div id="parkNext" class="carry-next">—</div>
+  </div>
+  <div id="cardCarryBox" class="carry-box" hidden>
+   <div class="carry-title">カードのLSP積算実績</div>
+   <div class="summary-line"><span>付与後の繰越実績</span><strong id="cardRemainOut">—</strong></div>
+   <div id="cardNext" class="carry-next">—</div>
+  </div>
+  <div class="formula-box">
+   <div class="formula-title">この条件での計算</div>
+   <p id="parkFormula" class="formula-text">—</p>
+   <p id="parkLspFormula" class="formula-text">—</p>
+   <p id="cardFormula" class="formula-text" hidden></p>
+  </div>
+  <div class="copy-row"><button type="button" id="copy" class="plain-button">結果をコピー</button><span id="copyMessage" class="copy-message" role="status"></span></div>
+  <p class="result-note">付与時期はマイルの積算後です。表示値は購入当日に付くLSPではなく、実際の付与を保証するものでもありません。</p>
+ </div>
+</aside>
+</main>
+<details class="notes" id="notes">
+ <summary>計算の前提・使い方・公式の確認先</summary>
+ <div class="notes-inner">
+  <p class="note-block"><strong>基本操作：</strong>「何円につき何マイル」と「税抜購入額」を入力します。例えば200円につき5マイル・税抜20,000円・繰越0なら、パーク経由分は500マイルと5ポイントです。入力例のボタンは率を入力するだけで、現在開催中のキャンペーンを示してはいません。</p>
+  <p class="note-block"><strong>LSPの計算：</strong>パークは対象マイル100マイルごとに1ポイント、JALカードは対象ショッピングマイル2,000マイルごとに5ポイントです。両者のマイル実績を足して換算せず、別々に計算したLSPを合計します。LSP付与によって交換用のマイルが消費されるわけではありません。<a href="https://www.jal.co.jp/jp/ja/jmb/lsp/service/detail/" target="_blank" rel="noopener noreferrer">公式基準［1］</a></p>
+  <p class="note-block"><strong>繰越実績：</strong>パークには同じ会員のパーク対象ショップ全体の未換算分、カードにはカード分の未換算分を入力します。JAL Mallなど、別サービスの実績は混ぜません。入力した繰越は、再計算やコピーをしても変わりません。実績の反映を確認してから、ご自身で次回の入力値を更新してください。</p>
+  <p class="note-block"><strong>キャンペーン：</strong>パークの通常のマイルアップはLSP対象ですが、一部キャンペーンのボーナスマイルは対象外です。「一部だけ対象」を選ぶと、獲得マイルとLSP対象マイルを分けて計算できます。JAL Mallは別サービスであり、このツールの初期設定をそのまま適用する対象ではありません。<a href="https://www.jal.co.jp/jp/ja/jmb/lsp/service/detail/" target="_blank" rel="noopener noreferrer">公式の対象条件［1］</a></p>
+  <p class="note-block"><strong>楽天市場などの上限：</strong>商品別・注文別の上限、対象外商品、クーポン、期間限定の上限は自動判定しません。楽天市場は原則税抜300円につき1マイルで、商品1個につき10万円を超える分は対象外です。高額商品があるときは「パークの積算対象額」を調整してください。例えば3万円の商品10点なら対象額30万円、30万円の商品1点なら対象額10万円です。購入前の経由などの条件も別途満たす必要があります。<a href="https://partner.jal.co.jp/shop/?tp=15268" target="_blank" rel="noopener noreferrer">楽天市場の条件［2］</a></p>
+  <p class="note-block"><strong>端数・税率：</strong>パーク経由分は初期設定では「対象額÷単位円×マイル」を計算後、1マイル未満を切り捨てます。これは概算用の仮定で、ショップ共通の公式ルールではありません。金額単位ごとの切り捨て、四捨五入にも変更できます。「金額単位で切り捨て」の場合は、指定マイル数を掛けた後の1マイル未満も切り捨てます。購入額全体を1件とするため、商品・注文別の端数処理と異なることがあります。カード用の税込額は税額の1円未満を切り捨てて概算します。</p>
+  <p class="note-block"><strong>カード決済：</strong>プレミアム加入者の通常店は対象決済額÷100を四捨五入し、特約店はその値を2倍にします。対象外の利用や支払方法、商品別の例外は判定しません。入力したカード対象額全体を1決済として扱うため、月間総額などの試算では多少の差が出ます。<a href="https://jalcard.jal.co.jp/admission/jpp.html" target="_blank" rel="noopener noreferrer">プレミアム会員特約［3］</a></p>
+  <p class="note-block"><strong>ファイルの利用：</strong>通信なしで計算できます。ブラウザーでファイルを開いて利用してください。ファイル一覧のプレビューでは操作できない場合があります。保存を選択した場合だけ、このブラウザー内に入力条件を記録します。ブラウザーやファイルを移動すると引き継がれない場合があります。外部通信は公式リンクを自分で開くとき以外は行いません。</p>
+  <div class="sources">制度確認：2026年9月。最新の積算率・対象条件は購入前に公式ページで確認してください。
+   <a href="https://www.jal.co.jp/jp/ja/jmb/lsp/service/detail/" target="_blank" rel="noopener noreferrer">［1］JAL：Life Statusポイントの積算対象サービス詳細</a>
+   <a href="https://partner.jal.co.jp/shop/?tp=15268" target="_blank" rel="noopener noreferrer">［2］JALマイレージパーク：楽天市場</a>
+   <a href="https://jalcard.jal.co.jp/admission/jpp.html" target="_blank" rel="noopener noreferrer">［3］JALカードショッピングマイル・プレミアム会員特約</a>
+   <a href="https://www.jal.co.jp/jp/ja/jmb/lsp/check/" target="_blank" rel="noopener noreferrer">［4］JAL：Life Statusポイント確認方法と積算ルール</a>
+  </div>
+ </div>
+</details>
+<footer class="footer"><span>JAL公式のサービスではありません。ログイン・カード番号の入力は不要です。</span><span>シミュレーター v1.0</span></footer>
+</div>
+<div class="mobile-result" aria-label="試算結果の要約"><div class="mobile-values"><div><div class="caption">獲得予定マイル</div><strong id="mobileMiles">—</strong></div><div><div class="caption">付与予定LSP</div><strong class="lsp" id="mobileLsp">—</strong></div></div><a href="#resultPanel">内訳を見る</a></div>
+<script>
+'use strict';
+(() => {
+ const $ = id => document.getElementById(id);
+ const nf = new Intl.NumberFormat('ja-JP', {maximumFractionDigits:2});
+ const fmt = n => nf.format(n);
+ const money = n => `${fmt(n)}円`;
+ const form = $('simForm');
+ const storageKey = 'jal-mileage-park-simulator-v1';
+ const defaults = {rateYen:'200',rateMiles:'1',amount:'20,000',parkCarry:'0',lspMode:'all',eligibleRate:'1',adjustPark:false,parkAmount:'20,000',rounding:'floor',includeCard:false,cardType:'normal',tax:'10',cardCarry:'0',overrideCard:false,cardAmount:'22,000'};
+ const outputIds = ['totalMiles','totalLsp','parkMilesOut','parkLspOut','cardMilesOut','cardLspOut','eligibleOut','excludedOut','parkRemainOut','cardRemainOut','parkNext','cardNext','parkFormula','parkLspFormula','cardFormula','mobileMiles','mobileLsp'];
+ let lastResult = null;
+ let lastState = null;
+ let selectedRakuten = false;
+ let busyRestoring = false;
+ const normalize = x => String(x).normalize('NFKC').replace(/[,\s円¥￥]/g,'');
+ class InputError extends Error {constructor(id,message){super(message);this.id=id;}}
+ function parseInteger(value, id, label, min=0, max=999999999) {
+   const s = normalize(value);
+   if(!/^\d+$/.test(s)) throw new InputError(id,`${label}は${min}以上の整数で入力してください。`);
+   const n = Number(s);
+   if(!Number.isSafeInteger(n)||n<min||n>max) throw new InputError(id,`${label}は${fmt(min)}〜${fmt(max)}で入力してください。`);
+   return n;
+ }
+ // Rates are stored in hundredths of a mile to avoid decimal multiplication errors.
+ function parseMileRate(value,id,label) {
+   const s = normalize(value);
+   if(!/^\d+(?:\.\d{1,2})?$/.test(s)) throw new InputError(id,`${label}は0〜1,000の数値で入力してください（小数点以下2桁まで）。`);
+   const [whole,decimal=''] = s.split('.');
+   const n = Number(whole)*100+Number(decimal.padEnd(2,'0'));
+   if(!Number.isSafeInteger(n)||n>100000) throw new InputError(id,`${label}は0〜1,000で入力してください。`);
+   return n;
+ }
+ function mileCalc(amount,unit,rate100,rounding) {
+   if(rounding==='block') return Math.floor(Math.floor(amount/unit)*rate100/100);
+   const numerator=amount*rate100,denominator=unit*100;
+   if(rounding==='round') return Math.floor((2*numerator+denominator)/(2*denominator));
+   return Math.floor(numerator/denominator);
+ }
+ // All inputs to this pure function are validated numeric values.
+ function calculate(s) {
+   const parkMiles=mileCalc(s.parkAmount,s.rateYen,s.rate100,s.rounding);
+   const eligible=mileCalc(s.parkAmount,s.rateYen,s.eligible100,s.rounding);
+   const parkLsp=Math.floor((eligible+s.parkCarry)/100);
+   const parkRemain=(eligible+s.parkCarry)%100;
+   const cardMiles=s.includeCard?Math.floor((s.cardAmount+50)/100)*(s.special?2:1):0;
+   const cardLsp=s.includeCard?Math.floor((cardMiles+s.cardCarry)/2000)*5:0;
+   const cardRemain=s.includeCard?(cardMiles+s.cardCarry)%2000:0;
+   return {parkMiles,eligible,excluded:parkMiles-eligible,parkLsp,parkRemain,cardMiles,cardLsp,cardRemain,totalMiles:parkMiles+cardMiles,totalLsp:parkLsp+cardLsp};
+ }
+ function getState() {
+   const amount=parseInteger($('amount').value,'amount','税抜購入額');
+   const rateYen=parseInteger($('rateYen').value,'rateYen','積算率の金額',1,1000000);
+   const rate100=parseMileRate($('rateMiles').value,'rateMiles','積算率のマイル');
+   const parkCarry=parseInteger($('parkCarry').value,'parkCarry','パークの繰越実績',0,99);
+   const parkAmount=$('adjustPark').checked?parseInteger($('parkAmount').value,'parkAmount','パークの積算対象額'):amount;
+   if(parkAmount>amount) throw new InputError('parkAmount','パークの積算対象額は、税抜購入額以下にしてください。');
+   const mode=$('lspMode').value;
+   const eligible100=mode==='none'?0:mode==='partial'?parseMileRate($('eligibleRate').value,'eligibleRate','LSP対象の積算率'):rate100;
+   if(eligible100>rate100) throw new InputError('eligibleRate','LSP対象のマイルは、ショップの獲得マイル以下にしてください。');
+   const tax=Number($('tax').value);
+   const includeCard=$('includeCard').checked;
+   const autoGross=amount+Math.floor(amount*tax/100);
+   const cardAmount=includeCard&&$('overrideCard').checked?parseInteger($('cardAmount').value,'cardAmount','カードの対象決済額'):autoGross;
+   const cardCarry=includeCard?parseInteger($('cardCarry').value,'cardCarry','カードの繰越実績',0,1999):0;
+   return {amount,rateYen,rate100,parkCarry,parkAmount,eligible100,mode,rounding:$('rounding').value,tax,includeCard,cardAmount,cardCarry,special:$('cardType').value==='special'};
+ }
+ function showConditions() {
+   const card=$('includeCard').checked;
+   $('cardSettings').hidden=!card;
+   $('cardResultRow').hidden=!card;
+   $('cardCarryBox').hidden=!card;
+   $('cardFormula').hidden=!card;
+   $('partialFields').hidden=$('lspMode').value!=='partial';
+   $('adjustParkFields').hidden=!$('adjustPark').checked;
+   $('overrideCardFields').hidden=!$('overrideCard').checked;
+   $('tax').disabled=card&&$('overrideCard').checked;
+   $('resultScope').textContent=card?'パーク＋カード決済分':'パーク経由分のみ';
+   const n=normalize($('rateYen').value);
+   $('rateUnitLabel').textContent=/^\d+$/.test(n)?fmt(Number(n)):'指定';
+   $('rakutenNote').hidden=!selectedRakuten;
+   const roundHints={floor:'例：250円を「200円につき5マイル」で購入すると、6.25マイル→6マイル。',block:'例：250円を「200円につき5マイル」で購入すると、200円の1単位分→5マイル。',round:'例：300円を「200円につき5マイル」で購入すると、7.5マイル→8マイル。'};
+   $('roundHint').textContent=roundHints[$('rounding').value];
+   document.querySelectorAll('.chip').forEach(b=>{
+     const match=normalize($('rateYen').value)===b.dataset.yen&&normalize($('rateMiles').value)===b.dataset.miles;
+     b.setAttribute('aria-pressed',String(match));
+   });
+ }
+ function render(s,r) {
+   const set=(id,v)=>{$(id).textContent=v;};
+   set('totalMiles',fmt(r.totalMiles));set('totalLsp',fmt(r.totalLsp));
+   set('mobileMiles',fmt(r.totalMiles));set('mobileLsp',fmt(r.totalLsp));
+   set('parkMilesOut',fmt(r.parkMiles));set('parkLspOut',fmt(r.parkLsp));
+   set('cardMilesOut',fmt(r.cardMiles));set('cardLspOut',fmt(r.cardLsp));
+   set('eligibleOut',`${fmt(r.eligible)}マイル`);set('excludedOut',`${fmt(r.excluded)}マイル`);
+   $('excludedLine').hidden=r.excluded===0;
+   set('parkRemainOut',`${fmt(r.parkRemain)}マイル`);set('cardRemainOut',`${fmt(r.cardRemain)}マイル`);
+   set('parkNext',`前回の繰越${fmt(s.parkCarry)}マイルを含めて計算。次の1ポイントまで、対象マイルがあと${fmt(100-r.parkRemain)}マイル必要です。`);
+   set('cardNext',`前回の繰越${fmt(s.cardCarry)}マイルを含めて計算。次の5ポイントまで、対象マイルがあと${fmt(2000-r.cardRemain)}マイル必要です。`);
+   const expr=s.rounding==='block'?`⌊${fmt(s.parkAmount)}円÷${fmt(s.rateYen)}円⌋×${fmt(s.rate100/100)}`:`${fmt(s.parkAmount)}円÷${fmt(s.rateYen)}円×${fmt(s.rate100/100)}`;
+   const roundName=s.rounding==='round'?'四捨五入':'切り捨て';
+   set('parkFormula',`パーク：${expr}＝${fmt(r.parkMiles)}マイル（1マイル未満${roundName}）`);
+   set('parkLspFormula',`パークLSP：⌊（対象${fmt(r.eligible)}＋繰越${fmt(s.parkCarry)}）÷100⌋＝${fmt(r.parkLsp)}ポイント`);
+   set('cardFormula',`カード：${money(s.cardAmount)}÷100を四捨五入${s.special?'後、2倍':''}＝${fmt(r.cardMiles)}マイル。⌊（${fmt(r.cardMiles)}＋繰越${fmt(s.cardCarry)}）÷2,000⌋×5＝${fmt(r.cardLsp)}ポイント`);
+   set('grossLabel',money(s.cardAmount));
+   $('copy').disabled=false;
+ }
+ function persist() {
+   if(busyRestoring) return;
+   if(!$('remember').checked) return;
+   try {
+     const values={};Object.keys(defaults).forEach(id=>{values[id]=$(id).type==='checkbox'?$(id).checked:$(id).value;});
+     localStorage.setItem(storageKey,JSON.stringify({values,rakuten:selectedRakuten}));
+     $('saveMessage').textContent='入力条件をこのブラウザーに保存しました。試算しても繰越実績は自動更新されません。';
+   } catch(e) {$('saveMessage').textContent='この環境では保存できません。計算自体はそのまま利用できます。';}
+ }
+ function update() {
+   showConditions();
+   form.querySelectorAll('[aria-invalid]').forEach(el=>el.removeAttribute('aria-invalid'));
+   $('error').hidden=true;$('copyMessage').textContent='';
+   try {
+     const s=getState();const r=calculate(s);lastState=s;lastResult=r;render(s,r);persist();
+   } catch(e) {
+     lastState=null;lastResult=null;outputIds.forEach(id=>{$(id).textContent='—';});$('grossLabel').textContent='—';$('copy').disabled=true;
+     $('error').hidden=false;$('error').textContent=e instanceof InputError?e.message:'入力値を確認してください。';
+     if(e.id&&$(e.id)) $(e.id).setAttribute('aria-invalid','true');
+   }
+ }
+ function reset() {
+   busyRestoring=true;
+   Object.entries(defaults).forEach(([id,value])=>{$(id).type==='checkbox'?$(id).checked=value:$(id).value=value;});
+   selectedRakuten=false;$('remember').checked=false;$('advanced').open=false;
+   try{localStorage.removeItem(storageKey);}catch(e){}
+   $('saveMessage').textContent='入力内容は外部送信しません。試算しても繰越実績は自動更新されません。';
+   busyRestoring=false;update();
+ }
+ function restore() {
+   busyRestoring=true;
+   try {
+     const stored=JSON.parse(localStorage.getItem(storageKey)||'null');
+     if(stored&&stored.values&&typeof stored.values==='object') {
+       Object.keys(defaults).forEach(id=>{
+         const val=stored.values[id];if(val===undefined)return;
+         if($(id).type==='checkbox'&&typeof val==='boolean') $(id).checked=val;
+         else if(typeof val==='string') {
+           if($(id).tagName==='SELECT'&&![...$(id).options].some(o=>o.value===val))return;
+           $(id).value=val.slice(0,24);
+         }
+       });
+       selectedRakuten=stored.rakuten===true;$('remember').checked=true;
+       if($('parkCarry').value!=='0'||$('lspMode').value!=='all'||$('adjustPark').checked||$('rounding').value!=='floor') $('advanced').open=true;
+     }
+   } catch(e) {}
+   busyRestoring=false;
+ }
+ function copyText(s,r) {
+   const mode=s.includeCard?'パーク＋JALカード':'パーク経由分のみ';
+   const text=[`マイレージパーク試算（${mode}）`,`積算率：${money(s.rateYen)}につき${fmt(s.rate100/100)}マイル`,`税抜購入額：${money(s.amount)}／パーク対象額：${money(s.parkAmount)}`,`獲得予定：${fmt(r.totalMiles)}マイル／付与予定：${fmt(r.totalLsp)}LSP`,`パーク：${fmt(r.parkMiles)}マイル（LSP対象${fmt(r.eligible)}）、${fmt(r.parkLsp)}LSP`,`パーク繰越：${fmt(s.parkCarry)}→${fmt(r.parkRemain)}マイル`];
+   if(s.includeCard) text.push(`カード対象決済額：${money(s.cardAmount)}（${s.special?'特約店':'通常店'}・プレミアム加入）`,`カード：${fmt(r.cardMiles)}マイル、${fmt(r.cardLsp)}LSP`,`カード繰越：${fmt(s.cardCarry)}→${fmt(r.cardRemain)}マイル`);
+   const roundLabels={floor:'計算後1マイル未満切り捨て',block:'金額単位で切り捨ててから計算',round:'計算後1マイル未満四捨五入'};
+   text.push(`端数処理：${roundLabels[s.rounding]}。入力額全体を1件とした概算。`,`商品別上限・対象条件は別途確認。対応するマイルがすべて反映された後の試算。`);
+   return text.join('\n');
+ }
+ form.addEventListener('submit',e=>{e.preventDefault();update();});
+ form.addEventListener('input',e=>{
+   if(e.target.id==='remember')return;
+   if(e.target.id==='rateYen'||e.target.id==='rateMiles') selectedRakuten=normalize($('rateYen').value)==='300'&&normalize($('rateMiles').value)==='1';
+   if(e.target.id==='adjustPark'&&$('adjustPark').checked) $('parkAmount').value=$('amount').value;
+   if(e.target.id==='overrideCard'&&$('overrideCard').checked) {
+     try{const a=parseInteger($('amount').value,'amount','購入額');$('cardAmount').value=fmt(a+Math.floor(a*Number($('tax').value)/100));}catch(e){}
+   }
+   update();
+ });
+ // change is also handled for browsers that do not emit input on select changes.
+ form.addEventListener('change',e=>{if(e.target.id!=='remember')update();});
+ form.querySelectorAll('input[type=text]').forEach(input=>input.addEventListener('blur',()=>{
+   const s=normalize(input.value);const decimal=['rateMiles','eligibleRate'].includes(input.id);
+   if((decimal?/^\d+(\.\d{1,2})?$/:/^\d+$/).test(s)&&Number.isFinite(Number(s))) input.value=fmt(Number(s));
+   update();
+ }));
+ document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
+   $('rateYen').value=b.dataset.yen;$('rateMiles').value=b.dataset.miles;selectedRakuten=b.dataset.rakuten==='true';update();
+ }));
+ $('reset').addEventListener('click',reset);
+ $('remember').addEventListener('change',()=>{
+   if($('remember').checked){if(lastResult)persist();else $('saveMessage').textContent='入力値を修正すると保存します。';}
+   else {try{localStorage.removeItem(storageKey);}catch(e){}$('saveMessage').textContent='保存した入力条件を削除しました。入力内容は外部送信しません。';}
+ });
+ $('copy').addEventListener('click',async()=>{
+   if(!lastResult||!lastState)return;
+   const text=copyText(lastState,lastResult);
+   try{
+     if(navigator.clipboard&&window.isSecureContext) await navigator.clipboard.writeText(text);
+     else throw new Error('Clipboard fallback');
+     $('copyMessage').textContent='コピーしました。';
+   }catch(e){
+     const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;left:0;top:0;opacity:0;';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,text.length);
+     let ok=false;try{ok=document.execCommand('copy');}catch(e){}ta.remove();
+     $('copyMessage').textContent=ok?'コピーしました。':'この環境ではコピーできません。画面の数値をご利用ください。';
+   }
+ });
+ // Read-only hooks make the arithmetic testable without UI automation or network access.
+ window.JALSimulator=Object.freeze({calculate,mileCalc,parseInteger,parseMileRate,version:'1.0'});
+ restore();update();
+})();
+</script>
+</body>
+</html>
